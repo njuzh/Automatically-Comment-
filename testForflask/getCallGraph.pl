@@ -1,9 +1,9 @@
 use Understand;
 use strict;
 
-my $udb_dir = "../udb/scipy.udb";
-my $func_info_dir = "../results/function_info_scipy.json";
-my $call_info_dir = "../results/call_info_scipy.json";
+my $udb_dir = "flask_test1.udb";
+my $func_info_dir = "function_info.json";
+my $call_info_dir = "call_info.json";
 
 (my $db, my $status) = Understand::open($udb_dir);
 if(!$db)
@@ -34,15 +34,15 @@ foreach my $ent (@ents)
 	my $file = $define_ref->file->longname();
 	$file =~ s/\\/\//g;
 
-	my @parameters = ();
-	my @refs = $ent->refs("define");
-	foreach my $ref(@refs)
-	{
-		if ($ref) {
-			push(@parameters, $ref->ent->name());
-			# print($ref->ent->name(), " ");
-		}
-	}
+	# my @parameters = ();
+	# my @refs = $ent->refs("define");
+	# foreach my $ref(@refs)
+	# {
+	# 	if ($ref) {
+	# 		push(@parameters, $ref->ent->name());
+	# 		# print($ref->ent->name(), " ");
+	# 	}
+	# }
 	
 	my $start_line = $define_ref->line();
 	my $end_line = $end_ref->line();
@@ -53,7 +53,7 @@ foreach my $ent (@ents)
 	if($i != 0) {
 		print FILE ",";
 	}
-	print FILE "{\"id\":$id,\"kind\":\"$kind\",\"name\":\"$name\",\"parameters\":\"@parameters\",\"file\":\"$file\",\"start_line\":$start_line,\"end_line\":$end_line}";
+	print FILE "{\"id\":$id,\"kind\":\"$kind\",\"name\":\"$name\",\"file\":\"$file\",\"start_line\":$start_line,\"end_line\":$end_line}";
 	$i++;
 
 }

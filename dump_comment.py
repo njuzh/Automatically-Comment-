@@ -109,16 +109,20 @@ def dfs(cur_dir):
 
 def main():
     #datasets = ["home-assistant","flask","pytorch","keras"]
-    datasets = ["spaCy"]
-    index = 0
+    #datasets = ["flask","django","requests","spaCy","keras"]
+    datasets = ['flask']
+    total_comment_num = 0
     for dataset in datasets:
+        index = 0
         pardir = os.path.abspath(os.path.dirname(os.getcwd()))
         result = dfs(os.path.join(pardir,"dataset",dataset))
-        with open("result_all.csv","a+", newline='') as csvfile:
+        with open(os.path.join(pardir,"results",dataset + ".csv"),"w", newline='', encoding='utf8') as csvfile:
+            print(dataset)
             writer = csv.writer(csvfile)
             writer.writerow(["index","project","file","func_name","func_doc"])
             for r in result:
                 index += 1
+                total_comment_num += 1
                 file = r[0]
                 cls = r[1]
                 func_name = r[2]
@@ -131,8 +135,9 @@ def main():
                 #print(qualname)
                 list1 = [index,dataset,file,func_name,doc]
                 
-                print (list1)
+                #print (list1)
                 writer.writerows([list1])
+    #print ("the total number of comment is"+ str(total_comment_num))
             
 
 if __name__=='__main__':

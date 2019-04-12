@@ -4,7 +4,7 @@ This example demonstrates a simple use of pycallgraph.
 '''
 from pycallgraph import PyCallGraph
 from pycallgraph.output import GraphvizOutput
-
+import numpy as np 
 
 class Banana:
 
@@ -27,18 +27,17 @@ class Person:
         [banana.eat() for banana in self.bananas]
         self.no_bananas()
 
-
+def funA():
+    return np.arange(10)
+def funB():
+    print(eval("1+1"))
 def main():
     graphviz = GraphvizOutput()
-    graphviz.output_file = 'basic.png'
+    graphviz.output_file = 'basic2.png'
 
     with PyCallGraph(output=graphviz):
-        #code_to_profile()
         person = Person()
-        for a in range(10):
-            person.add_banana(Banana())
-        person.eat_bananas()
-        
-
+        a = funA()
+        funB()
 if __name__ == '__main__':
     main()
