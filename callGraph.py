@@ -39,5 +39,6 @@ def main():
         person = Person()
         a = funA()
         funB()
+        b = np.arange(10)
 if __name__ == '__main__':
     main()
